@@ -8,14 +8,14 @@ import { routes } from "./routes";
 
 export const Navigation = () => {
   return (
-    <Suspense fallback={<span>loading...</span>}>
+    <Suspense fallback={<span>Loading...</span>}>
       <BrowserRouter>
         <div className="main-layout">
           <nav>
             <img src={logo} alt="React Logo" />
             <ul>
               {routes.map((route) => (
-                <li key={route.to}>
+                <li key={route.path}>
                   <NavLink
                     to={route.to}
                     className={({ isActive }) => (isActive ? "nav-active" : "")}
@@ -30,13 +30,13 @@ export const Navigation = () => {
           <Routes>
             {routes.map((route) => (
               <Route
-                key={route.to}
+                key={route.path}
                 path={route.path}
                 element={<route.Component />}
               />
             ))}
 
-            <Route path="/*" element={<Navigate to="/home" replace />} />
+            <Route path="/*" element={<Navigate to={routes[0].to} replace />} />
           </Routes>
         </div>
       </BrowserRouter>
